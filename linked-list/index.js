@@ -43,13 +43,46 @@ class Linkedlinst{
     }
 
     print(){
+        //[100],[200],[500],[700]
         let prev = this.head;
-        let printVal = this.head.value;
+        let printVal = this.head.value; //100
+        let i =0;
         while(prev.next){
+            console.log(`printVal ==>,${printVal}`);
             prev = prev.next;
-            printVal = printVal + " " + prev.value; 
+            printVal = printVal + " " + prev.value;
+            i++
         }
         return printVal;
+    }
+
+    insertNode(node,position){ //insert at postion 2
+        if(position==0){
+            this.prepend(node);
+            return;
+        }
+
+        if(position==this.size){
+            this.append(node);
+            return;
+        }
+
+        if(position>this.size){
+            console.log("Sorry, postion does not exist");
+            return;
+        }
+
+        let prev = this.head; //root node
+        for(let i=0; i<position-1; i++){ //0,1
+            prev = prev.next;
+            //console.log();
+        }
+
+        node.next = prev;
+        //prev.next = node;
+        //node.next = 
+
+        console.log(`Node at postion no ${position}`,prev); //2nd position
     }
 }
 
@@ -82,3 +115,6 @@ list.append(node3);
 console.log("3rd append ======>");
 console.log("========== Print Test ===========");
 console.log(list.print());
+
+const node4 = new Node(700);
+list.insertNode(node4,2);
