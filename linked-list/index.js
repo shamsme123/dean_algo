@@ -73,16 +73,19 @@ class Linkedlinst{
         }
 
         let prev = this.head; //root node
-        for(let i=0; i<position-1; i++){ //0,1
+        for(let i=0; i<position-1; i++){ //0
+            console.log("Prev with in loop: before update ===>",prev.value);
             prev = prev.next;
-            //console.log();
+            console.log("Prev with in loop: after update ===>",prev.value);
         }
 
-        node.next = prev;
-        //prev.next = node;
-        //node.next = 
+        console.log(`After exiting the loop,Node at postion no ${position}`,prev.value,prev.next); //2nd position
 
-        console.log(`Node at postion no ${position}`,prev); //2nd position
+        node.next = prev.next; //700.next = 100.next
+
+        prev.next = node; //100.next = 700
+
+        console.log("The linkedList 2 ===>",list);
     }
 }
 
@@ -117,4 +120,7 @@ console.log("========== Print Test ===========");
 console.log(list.print());
 
 const node4 = new Node(700);
-list.insertNode(node4,2);
+list.insertNode(node4,1);
+
+console.log(list.print());
+console.log(list);
