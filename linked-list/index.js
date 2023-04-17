@@ -18,9 +18,9 @@ class Linkedlinst{
     prepend(node){ //1 //1 O(1) linked-list prepend
         console.log("The Node ===>",node);
         if(this.size==0){
-            this.head = node;
-        }else{
-            //node is the new node
+            this.head = node; //o(1)
+        }else{ //o(1) number of inputs
+            //node is the new node //10,000 10,001th 0th=node
             node.next = this.head; //head is stil pointing to the first node
             this.head = node;//new node becomes the 1st node as head pointer is pointing to it
         }
@@ -28,7 +28,7 @@ class Linkedlinst{
         this.size++;
     }
 
-    append(node){
+    append(node){ //o(n) 10,000 10,001 10.000+.3
         if(this.size==0){
             this.head = node;
         }else{
@@ -42,7 +42,7 @@ class Linkedlinst{
         this.size++;
     }
 
-    print(){
+    print(){ //o(n)
         //[100],[200],[500],[700]
         let prev = this.head;
         let printVal = this.head.value; //100
@@ -56,7 +56,7 @@ class Linkedlinst{
         return printVal;
     }
 
-    insertNode(node,position){ //insert at postion 2
+    insertNode(node,position){ //insert at postion 2 //o(n)
         if(position==0){
             this.prepend(node);
             return;
@@ -73,19 +73,39 @@ class Linkedlinst{
         }
 
         let prev = this.head; //root node
-        for(let i=0; i<position-1; i++){ //0
+        for(let i=0; i<position-1; i++){ //0 3-4 999 999-1=998
             console.log("Prev with in loop: before update ===>",prev.value);
             prev = prev.next;
             console.log("Prev with in loop: after update ===>",prev.value);
         }
 
-        console.log(`After exiting the loop,Node at postion no ${position}`,prev.value,prev.next); //2nd position
+        console.log(`After exiting the loop,Node at postion no ${position-1}`,
+        prev.value,prev.next); //2nd position
 
-        node.next = prev.next; //700.next = 100.next
+        node.next = prev.next; //700.next = 100.next=500
 
-        prev.next = node; //100.next = 700
+        console.log("prev.next Before ===> in the function",prev);
+
+        prev.next = node; //100.next = 700 100.next=500 100.next = 700
+
+        console.log("prev.next after ===> in the function",prev);
 
         console.log("The linkedList 2 ===>",list);
+    }
+
+    deleteNode(position){//execution context o(n)
+        console.log("<<<<<<<<<<<< Delete >>>>>>>>>>>");
+        let prev = this.head; //root node
+        for(let i=0; i<position-1; i++){ //0 3-4 10,000 9,999 = o(n)
+            console.log("Prev with in loop: before update ===>",prev.value);
+            prev = prev.next;
+            console.log("Prev with in loop: after update ===>",prev.value);
+        }
+
+        console.log("Delete: prev after loop exit ===>",prev.next.next);
+        //700
+        //prev.next = 
+        prev.next = prev.next.next;
     }
 }
 
@@ -120,7 +140,12 @@ console.log("========== Print Test ===========");
 console.log(list.print());
 
 const node4 = new Node(700);
-list.insertNode(node4,1);
+list.insertNode(node4,2);
 
 console.log(list.print());
 console.log(list);
+
+list.deleteNode(2); //when we are calling it, makes it an execution context
+console.log(list.print());
+console.log(list);
+
